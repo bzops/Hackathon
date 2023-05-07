@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: flaskdemo
+  name: flaskdemo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flaskdemo
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: flaskdemo
+    spec:
+      containers:
+      - image: saipramod007/team2:89
+        name: flaskdemo
+        resources: 
+          requests:
+            cpu: 100m
+          limits:
+            cpu: 100m
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+ name: flaskdemo
+spec:
+ type: NodePort
+ selector:
+   app: flaskdemo
+ ports:
+ - nodePort: 32412
+   protocol: TCP
+   port: 80
+   targetPort: 5000
+
+---
+
+---
+
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: flaskdemo
+  namespace: default
+spec:
+  scaleTargetRef: 
+    apiVersion: apps/v1
+    kind: Deployment
+    name: flaskdemo
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 10
