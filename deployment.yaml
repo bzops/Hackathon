@@ -18,7 +18,7 @@ spec:
         app: flaskdemo
     spec:
       containers:
-      - image: bzops/hackathon-team2:21
+      - image: bzops/hackathon-team2:22
         name: flaskdemo
         resources: 
           requests:
