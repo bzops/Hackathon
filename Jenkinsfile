@@ -9,7 +9,7 @@ node {
 
     stage('Build image') {
   
-       app = docker.build("bzops /hackathon-team2")
+       app = docker.build("bzops/hackathon-team2")
     }
 
     stage('Test image') {
@@ -22,7 +22,7 @@ node {
 
     stage('Push image') {
         
-        docker.withregistry('https://registry.hub.docker.com', 'dockerhub') {
+        docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
             app.push("${env.BUILD_NUMBER}")
         }
     }
