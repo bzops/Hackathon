@@ -1,4 +1,4 @@
-node {
+node (label: 'jenkins_slave'){
     def app
 
     stage('Clone repository') {
